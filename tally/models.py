@@ -6,7 +6,9 @@ import datetime
 
 
 class Student(models.Model):
-    name = models.CharField(max_length=250)
+    full_name = models.CharField(max_length=250)#, default='{} {}'.format(first_name, last_name))
+    first_name = models.CharField(max_length=200, null=True)
+    last_name = models.CharField(max_length=200, null=True)
     phone = models.CharField(max_length=15, blank=True, null=True)
     homeroom = models.CharField(max_length=20, blank=True, null=True)
     adults = ArrayField(models.CharField(max_length=250), blank=True, null=True)
@@ -22,7 +24,7 @@ class Student(models.Model):
         return self.add_date.year == datetime.datetime.now().year
 
     def __str__(self):
-        return self.name
+        return self.full_name
 
 
 class Business(models.Model):

@@ -2,6 +2,8 @@
 *__pycache__*
 manage.py
 *tally/modelinfo/businesses.csv
+*tally/modelinfo/students.csv
+*tally/modelinfo/past_purchases.csv
 *migrations*
 *.swp
 *.swo
