@@ -18,9 +18,11 @@ from django.conf.urls import url
 from django.contrib import admin
 from django.conf.urls import include
 from tally import urls as tally_urls
+from main import urls as main_urls
 
 
 urlpatterns = [
+    url(r'^', include(main_urls)),
     url(r'^admin/', admin.site.urls),
     url(r'^tally/', include(tally_urls)),
 ]

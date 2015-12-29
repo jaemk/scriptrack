@@ -5,9 +5,9 @@ from django.http import HttpResponse as httpresp
 
 
 def index(request):
-    return httpresp('welcome to the index!\n From here you can view students or businesses')
+    #return httpresp('welcome to the index!\n From here you can view students or businesses')
     #context = {'my_response': 'generic response'}
-    #return render(request, 'tally/index.html', context)
+    return render(request, 'tally/index.html')
 
 
 def students(request):
@@ -16,6 +16,10 @@ def students(request):
 
 def businesses(request):
     return httpresp('welcome to the business index')
+
+
+def purchases(request):
+    return httpresp('welcome to the purchase index')
 
 
 def student_detail(request, student_name):
