@@ -1,3 +1,3 @@
 #scriptrack
 
-input and tracking of scrip orders
+input and tracking of school scrip orders
