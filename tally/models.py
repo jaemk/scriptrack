@@ -52,9 +52,9 @@ class Purchase(models.Model):
     purchase_date = models.DateTimeField(auto_now_add=True)
     mod_date = models.DateTimeField(auto_now=True, null=True)
 
-    amount = models.DecimalField(max_digits=20, decimal_places=2)
-    student_earned = models.DecimalField(max_digits=20, decimal_places=2)
-    school_earned = models.DecimalField(max_digits=20, decimal_places=2)
+    amount = models.DecimalField(max_digits=20, decimal_places=2, null=True)
+    student_earned = models.DecimalField(max_digits=20, decimal_places=2, null=True)
+    school_earned = models.DecimalField(max_digits=20, decimal_places=2, null=True)
 
 
     def purchased_this_year(self):
