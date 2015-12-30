@@ -62,7 +62,6 @@ class Purchase(models.Model):
     student_earned = models.DecimalField(max_digits=20, decimal_places=2, null=True)
     school_earned = models.DecimalField(max_digits=20, decimal_places=2, null=True)
 
-
     def purchased_this_year(self):
         return self.purchase_date.year == datetime.datetime.now().year
 
