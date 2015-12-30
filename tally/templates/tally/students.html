@@ -1,9 +1,21 @@
 {% extends 'tally/base.html' %}
 
-{% block content %}
-    <h1> All Students </h1>
+{% block content %} 
+    <p align='right'>
+    {% if loggedin_username  %}
+        Logged in as: {{ loggedin_username }}
+    {% else %}
+        Not logged in
+    {% endif %}
+    </p>
 
     {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+
+
+
+   <h1> All Students </h1>
+
 
     <a href="{% url 'tally:add_student' %}">Add a new student</a>
 

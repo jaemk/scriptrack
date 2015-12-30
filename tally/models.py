@@ -17,8 +17,12 @@ class Student(models.Model):
     add_date = models.DateTimeField(auto_now_add=True)
     mod_date = models.DateTimeField(auto_now=True, null=True)
 
-    def is_enrolled(self):
-        return self.enrolled
+    def all_purchases(self):
+        return Purchase.objects.filter(student__full_name=self.full_name)
+
+    def year_purchases(self):
+        return Purchase.objects.filter(student__full_name=self.full_name)\
+                       .filter(purchase_date__year = datetime.datetime.now().year)
 
     def enrolled_this_year(self):
         return self.add_date.year == datetime.datetime.now().year
