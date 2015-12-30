@@ -1,16 +1,6 @@
 {% extends 'tally/base.html' %}
 
 {% block content %}
-    <p align='right'>
-    {% if loggedin_username  %}
-        Logged in as: {{ loggedin_username }}
-    {% else %}
-        Not logged in
-    {% endif %}
-    </p>
-
-    {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
-
 
     <h1> Tally Index </h1>
 

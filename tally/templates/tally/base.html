@@ -13,10 +13,20 @@
         </div>
         <div align='right'>
             <a href='/'>Main Home </a> |
-            <a href='/tally/login?next=/tally/'> Login </a> | 
-            <a href='/tally/logout'> Logout</a>
+            <a href='/accounts/login?next=/tally/'> Login </a> | 
+            <a href='/accounts/logout'> Logout</a>
         </div>
         <div>
+            <p align='right'>
+            {% if username  %}
+                Logged in as: {{ username }}
+            {% else %}
+                Not logged in
+            {% endif %}
+            </p>
+            {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+
             {% block content %}
             {% endblock %}
         </div>

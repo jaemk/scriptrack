@@ -1,16 +1,6 @@
 {% extends 'tally/base.html' %}
 
 {% block content %}
-    <p align='right'>
-    {% if loggedin_username  %}
-        Logged in as: {{ loggedin_username }}
-    {% else %}
-        Not logged in
-    {% endif %}
-    </p>
-
-    {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
-
 
     <h2 style="margin-left:10px"> {{ student.full_name.title }} </h2>
     <table border="1" style="float:left; margin-left:10px; margin-right:100px; text-align:center">

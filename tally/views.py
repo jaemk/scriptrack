@@ -23,7 +23,7 @@ def _get_username(request):
 
 def index(request):
     username = _get_username(request)
-    return render(request, 'tally/index.html', {'loggedin_username':username})
+    return render(request, 'tally/index.html', {'username':username})
 
 def logout_view(request):
     username = request.user
@@ -36,14 +36,14 @@ def logout_view(request):
 
 ######  Student Views ######
 
-@login_required(login_url='/tally/login')
+@login_required(login_url='/accounts/login')
 def students(request):
     username = _get_username(request)
     student_list = Student.objects.all()
-    context = {'student_list':student_list, 'loggedin_username':username }
+    context = {'student_list':student_list, 'username':username }
     return render(request, 'tally/students.html', context)
 
-@login_required(login_url='/tally/login')
+@login_required(login_url='/accounts/login')
 def student_detail(request, student_id):
     username = _get_username(request)
     student = Student.objects.get(pk=student_id)
@@ -56,11 +56,11 @@ def student_detail(request, student_id):
 
     context = {'student':student, 'purchases':all_purchases, 'total_spent':total_spent,
                'total_earned':total_earned, 'thisyear_spent':spent_thisyear,
-               'thisyear_earned':earned_thisyear, 'loggedin_username':username}
+               'thisyear_earned':earned_thisyear, 'username':username}
 
     return render(request, 'tally/student_detail.html', context)
 
-@login_required(login_url='/tally/login')
+@login_required(login_url='/accounts/login')
 def add_student(request):
     return render(request, 'tally/add_student.html')
 
@@ -69,21 +69,35 @@ def add_student(request):
 ###### Business Views ######
 
 def businesses(request):
-    return httpresp('welcome to the business index')
+    username = _get_username(request)
+    businesses = Business.objects.all()
+    context = {'username':username, 'businesses':businesses}
+    return render(request, 'tally/businesses.html', context)
+    #return httpresp('welcome to the business index')
 
-def business_detail(request, business_name):
-    return httpresp('welcome to {}\'s business-detail view'.format(business_name))
+def business_detail(request, business_id):
+    business = Business.objects.get(pk=business_id)
+    return httpresp('welcome to {}\'s business-detail view'.format(business.name))
 
 
 
 ###### Purchase Views ######
 
 def purchases(request):
-    return httpresp('welcome to the purchase index')
+    username = _get_username(request)
+    purchases = Purchase.objects.all()
+    context = {'username':username, 'purchases':purchases}
+    return render(request, 'tally/purchases.html', context)
+    # return httpresp('welcome to the purchase index')
 
 def purchase_detail(request, purchase_id):
+    username = _get_username(request)
     purchase = Purchase.objects.get(pk=purchase_id)
-    return httpresp('details for purchase -- {}'.format(purchase))
+    perc = str(round(purchase.business.percentage * 100, 2)) if purchase.business.percentage else 'N/A'
+    percentage = '{}%'.format(perc)
+    context = {'username':username, 'purchase':purchase, 'percentage':percentage}
+    return render(request, 'tally/purchase_detail.html', context)
+
 
 def add_purchase_student(request, student_id):
     student = Student.objects.get(pk=student_id)

@@ -1,0 +1,17 @@
+{% extends 'tally/base.html' %}
+
+{% block content %}
+
+<h1> All Businesses </h1>
+<a href=''> Add new business</a>
+
+<ul>
+    {% for bus in businesses %}
+    <li><a href={% url 'tally:business_detail' bus.id %}>{{ bus.name }}</a></li>
+    {% endfor %}
+
+</ul>
+
+
+
+{% endblock %}

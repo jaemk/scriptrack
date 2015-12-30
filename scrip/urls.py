@@ -17,13 +17,18 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 from django.conf.urls import include
+from django.contrib.auth import views as auth_views
 
 from tally import urls as tally_urls
+from tally import views as tally_views
 from main import urls as main_urls
 
 
 urlpatterns = [
     url(r'^', include(main_urls)),
+    # url(r'^accounts/login', auth_views.login, {'template_name': 'admin/login.html'}, name='login'),
+    url(r'^accounts/login', auth_views.login, {'template_name': 'tally/login.html'}, name='login'),
+    url(r'^accounts/logout', tally_views.logout_view, name='logout'),
     url(r'^admin/', admin.site.urls),
     url(r'^tally/', include(tally_urls)),
 ]

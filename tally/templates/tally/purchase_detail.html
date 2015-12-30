@@ -1,0 +1,18 @@
+{% extends 'tally/base.html' %}
+
+{% block content %}
+<h1 style="margin-left:10px">  
+    {{ purchase.student.full_name.title }} -- {{ purchase.business.name.title }} </h1>
+
+<br/>
+<table class="center-table">
+    <col width='75'>
+    <col width='300'>
+    <caption><strong> -- Purchase Details -- </strong></caption>
+    <tr><th>Desc.</th><td>{{ purchase }}</td></tr>
+    <tr><th>Amount</th><td>{{ purchase.amount }}</td></tr>
+    <tr><th>%</th><td>{{ percentage }}</td></tr>
+</table>
+
+
+{% endblock %}
