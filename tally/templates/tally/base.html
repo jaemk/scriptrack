@@ -11,18 +11,22 @@
         <div>
             <h1><a href="/tally/">Scrip Tally</a></h1>
         </div>
-        <div align='right'>
-            <a href='/'>Main Home </a> |
-            <a href='/accounts/login?next=/tally/'> Login </a> | 
-            <a href='/accounts/logout'> Logout</a>
-        </div>
         <div>
-            <p align='right'>
-            {% if username  %}
-                Logged in as: {{ username }}
-            {% else %}
-                Not logged in
-            {% endif %}
+            <p style='text-align:left; margin-left:10px; margin-right:10px'>
+            <a href='/tally/students/'>Students </a> |
+            <a href='/tally/businesses/'> Businesses </a> | 
+            <a href='/tally/purchases/'> Purchases </a> | 
+            <a href='/'> Main Index </a>
+                <span style='float:right'>        
+                    <a href='/accounts/login?next=/tally/'> Login </a> | 
+                    <a href='/accounts/logout'> Logout</a>
+                    <br/>
+                    {% if username  %}
+                        Logged in as: {{ username }}
+                    {% else %}
+                        Not logged in
+                    {% endif %}
+                </span>
             </p>
             {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
 

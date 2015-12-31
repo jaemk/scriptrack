@@ -2,7 +2,7 @@
 
 {% block content %}
 <h1 style="margin-left:10px">  
-    {{ purchase.student.full_name.title }} -- {{ purchase.business.name.title }} </h1>
+    {{ purchase.student.full_name.title }} -- {{ purchase.business.name.capitalize }} </h1>
 
 <br/>
 <table class="center-table">
@@ -10,7 +10,8 @@
     <col width='300'>
     <caption><strong> -- Purchase Details -- </strong></caption>
     <tr><th>Desc.</th><td>{{ purchase }}</td></tr>
-    <tr><th>Amount</th><td>{{ purchase.amount }}</td></tr>
+    <tr><th>Date</th><td>{{ purchase.purchase_date.month }}/{{purchase.purchase_date.day}}/{{purchase.purchase_date.year }}</td></tr>
+    <tr><th>Amount</th><td>${{ purchase.amount }}</td></tr>
     <tr><th>%</th><td>{{ percentage }}</td></tr>
 </table>
 

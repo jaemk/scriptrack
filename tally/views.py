@@ -6,7 +6,7 @@ from django.contrib.auth import logout
 from django.http import HttpResponse as httpresp
 
 from .models import Student, Business, Purchase
-
+import string
 
 ###### Private Methods ######
 
@@ -62,7 +62,9 @@ def student_detail(request, student_id):
 
 @login_required(login_url='/accounts/login')
 def add_student(request):
-    return render(request, 'tally/add_student.html')
+    username = _get_username(request)
+    context = {'username':username}
+    return render(request, 'tally/add_student.html', context)
 
 
 
@@ -71,13 +73,14 @@ def add_student(request):
 def businesses(request):
     username = _get_username(request)
     businesses = Business.objects.all()
-    context = {'username':username, 'businesses':businesses}
+    context = {'username':username, 'businesses':businesses, 'btitle':'one'}
     return render(request, 'tally/businesses.html', context)
-    #return httpresp('welcome to the business index')
 
 def business_detail(request, business_id):
     business = Business.objects.get(pk=business_id)
-    return httpresp('welcome to {}\'s business-detail view'.format(business.name))
+    context = {'business':business}
+    return render(request, 'tally/business_detail.html', context)
+    # return httpresp('welcome to {}\'s business-detail view'.format(business.name))
 
 
 
@@ -88,7 +91,6 @@ def purchases(request):
     purchases = Purchase.objects.all()
     context = {'username':username, 'purchases':purchases}
     return render(request, 'tally/purchases.html', context)
-    # return httpresp('welcome to the purchase index')
 
 def purchase_detail(request, purchase_id):
     username = _get_username(request)
