@@ -39,7 +39,7 @@ def logout_view(request):
 @login_required(login_url='/accounts/login')
 def students(request):
     username = _get_username(request)
-    student_list = Student.objects.all()
+    student_list = Student.objects.all().order_by('first_name')
     context = {'student_list':student_list, 'username':username }
     return render(request, 'tally/students.html', context)
 
@@ -70,12 +70,14 @@ def add_student(request):
 
 ###### Business Views ######
 
+@login_required(login_url='/accounts/login')
 def businesses(request):
     username = _get_username(request)
     businesses = Business.objects.all()
     context = {'username':username, 'businesses':businesses, 'btitle':'one'}
     return render(request, 'tally/businesses.html', context)
 
+@login_required(login_url='/accounts/login')
 def business_detail(request, business_id):
     business = Business.objects.get(pk=business_id)
     context = {'business':business}
@@ -86,12 +88,14 @@ def business_detail(request, business_id):
 
 ###### Purchase Views ######
 
+@login_required(login_url='/accounts/login')
 def purchases(request):
     username = _get_username(request)
     purchases = Purchase.objects.all()
     context = {'username':username, 'purchases':purchases}
     return render(request, 'tally/purchases.html', context)
 
+@login_required(login_url='/accounts/login')
 def purchase_detail(request, purchase_id):
     username = _get_username(request)
     purchase = Purchase.objects.get(pk=purchase_id)
@@ -100,7 +104,7 @@ def purchase_detail(request, purchase_id):
     context = {'username':username, 'purchase':purchase, 'percentage':percentage}
     return render(request, 'tally/purchase_detail.html', context)
 
-
+@login_required(login_url='/accounts/login')
 def add_purchase_student(request, student_id):
     student = Student.objects.get(pk=student_id)
     return httpresp('form to add new purchase for student {}'.format(student.full_name))
