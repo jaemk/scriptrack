@@ -12,7 +12,8 @@ class Student(models.Model):
     phone = models.CharField(max_length=15, blank=True, null=True)
     homeroom = models.CharField(max_length=20, blank=True, null=True)
     adults = ArrayField(models.CharField(max_length=250), blank=True, null=True)
-
+    
+    school = models.CharField(max_length=250, null=True)
     enrolled = models.BooleanField(default=True, blank=True)
     add_date = models.DateTimeField(auto_now_add=True)
     mod_date = models.DateTimeField(auto_now=True, null=True)
