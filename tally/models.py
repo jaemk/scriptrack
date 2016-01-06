@@ -12,6 +12,7 @@ class Student(models.Model):
     phone = models.CharField(max_length=15, blank=True, null=True)
     homeroom = models.CharField(max_length=20, blank=True, null=True)
     adults = ArrayField(models.CharField(max_length=250), blank=True, null=True)
+    email = models.CharField(max_length=250, blank=True, null=True)
     
     school = models.CharField(max_length=250, null=True)
     enrolled = models.BooleanField(default=True, blank=True)
@@ -34,6 +35,7 @@ class Student(models.Model):
 
 class Business(models.Model):
     name = models.CharField(max_length=250)
+    phone = models.CharField(max_length=20, blank=True, null=True)
     percentage = models.DecimalField(max_digits=4, decimal_places=3, null=True)
     amounts = ArrayField(models.DecimalField(max_digits=20, decimal_places=2),
                                              blank=True, null=True)

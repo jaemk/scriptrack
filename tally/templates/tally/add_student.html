@@ -1,9 +1,15 @@
-{% extends 'tally/base.html' %}    
+{% extends 'tally/base.html' %}
 
 {% block content %}
 
+<h1> Add Student </h1>
 
-   <h1> Add Student </h1>
+<table>
+    <form action="/tally/add/student/" method="post">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit" value="Submit" />
+    </form>
+</table>
 
-    Form to add to Student
 {% endblock %}

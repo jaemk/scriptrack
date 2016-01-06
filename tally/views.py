@@ -4,8 +4,10 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
 
 from django.http import HttpResponse as httpresp
+from django.http import HttpResponseRedirect as httprespred
 
 from .models import Student, Business, Purchase
+from .forms import StudentForm
 import string
 
 ###### Private Methods ######
@@ -63,7 +65,20 @@ def student_detail(request, student_id):
 @login_required(login_url='/accounts/login')
 def add_student(request):
     username = _get_username(request)
-    context = {'username':username}
+    if request.method == 'POST':
+        form = StudentForm(request.POST)
+        if form.is_valid():
+            return httpresp('Your Post Info: ' + ', '.join([form.cleaned_data['first_name'], 
+                            form.cleaned_data['last_name'],
+                            str(form.cleaned_data['enrolled']),
+                            form.cleaned_data['adults'],
+                            form.cleaned_data['phone'],
+                            form.cleaned_data['email']]))
+            return httprespred('/tally/students/')
+    else:
+        form = StudentForm()
+
+    context = {'username':username, 'form':form.as_table()}
     return render(request, 'tally/add_student.html', context)
 
 
