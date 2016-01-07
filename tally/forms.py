@@ -7,12 +7,14 @@ class StudentForm(forms.Form):
     homeroom = forms.CharField(max_length=20, required=False)
     adults = forms.CharField(max_length=250, required=False)
     phone = forms.CharField(max_length=20, required=False)
-    email = forms.EmailField()
+    email = forms.EmailField(required=False)
+    accept = forms.BooleanField(required=True)
     school = forms.MultipleChoiceField(required=True,
                                        widget=forms.CheckboxSelectMultiple,
                                        choices=(('sc1', 'SC1'),
                                                 ('sc2', 'SC2'),
-                                                ('sc3', 'SC3')))
+                                                ('sc3', 'SC3'),
+                                                (None,  'none')))
 
 
     

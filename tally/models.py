@@ -18,6 +18,8 @@ class Student(models.Model):
     enrolled = models.BooleanField(default=True, blank=True)
     add_date = models.DateTimeField(auto_now_add=True)
     mod_date = models.DateTimeField(auto_now=True, null=True)
+    added_by = models.CharField(max_length=250, blank=True, null=True)
+    modified_by = models.CharField(max_length=250, blank=True, null=True)
 
     def all_purchases(self):
         return Purchase.objects.filter(student__full_name=self.full_name)
@@ -42,6 +44,8 @@ class Business(models.Model):
     enrolled = models.BooleanField(default=True, blank=True)
     add_date = models.DateTimeField(auto_now_add=True)
     mod_date = models.DateTimeField(auto_now=True, null=True)
+    added_by = models.CharField(max_length=250, blank=True, null=True)
+    modified_by = models.CharField(max_length=250, blank=True, null=True)
 
     def is_enrolled(self):
         return self.enrolled
@@ -64,6 +68,9 @@ class Purchase(models.Model):
     amount = models.DecimalField(max_digits=20, decimal_places=2, null=True)
     student_earned = models.DecimalField(max_digits=20, decimal_places=2, null=True)
     school_earned = models.DecimalField(max_digits=20, decimal_places=2, null=True)
+    added_by = models.CharField(max_length=250, blank=True, null=True)
+    modified_by = models.CharField(max_length=250, blank=True, null=True)
+
 
     def purchased_this_year(self):
         return self.purchase_date.year == datetime.datetime.now().year

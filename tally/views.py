@@ -58,9 +58,29 @@ def student_detail(request, student_id):
 
     context = {'student':student, 'purchases':all_purchases, 'total_spent':total_spent,
                'total_earned':total_earned, 'thisyear_spent':spent_thisyear,
-               'thisyear_earned':earned_thisyear, 'username':username}
+               'thisyear_earned':earned_thisyear, 'username':username }
 
     return render(request, 'tally/student_detail.html', context)
+
+def _add_student(username, formdat):
+    full = ' '.join([formdat['first_name'].strip().lower(),
+                    formdat['last_name'].strip().lower()])
+    first = formdat['first_name'].strip().lower()
+    last = formdat['last_name'].strip().lower()
+    phone = formdat['phone'].strip().lower() if formdat['phone'].strip().lower() else None
+    email = formdat['email'].strip().lower() if formdat['email'].strip().lower() else None
+    school = formdat['school']
+    enrolled = formdat['enrolled'] if formdat['enrolled'] else None
+    adultsraw = formdat['adults'].strip().lower()
+    adults = None
+    if adultsraw:
+        adults = [name.strip().lower() for name in adultsraw.split(',') if name.strip() != '']
+
+    new_st = Student(full_name=full, first_name=first, last_name=last, phone=phone,
+                     email=email, school=school, adults=adults, enrolled=enrolled,
+                     added_by=username)
+    new_st.save()
+    return full
 
 @login_required(login_url='/accounts/login')
 def add_student(request):
@@ -68,13 +88,16 @@ def add_student(request):
     if request.method == 'POST':
         form = StudentForm(request.POST)
         if form.is_valid():
-            return httpresp('Your Post Info: ' + ', '.join([form.cleaned_data['first_name'], 
-                            form.cleaned_data['last_name'],
-                            str(form.cleaned_data['enrolled']),
-                            form.cleaned_data['adults'],
-                            form.cleaned_data['phone'],
-                            form.cleaned_data['email']]))
-            return httprespred('/tally/students/')
+            full_name = _add_student(username, form.cleaned_data)
+            student = Student.objects.get(full_name=full_name)
+
+            # return httpresp('Your Post Info: ' + ', '.join([form.cleaned_data['first_name'], 
+            #                 form.cleaned_data['last_name'],
+            #                 str(form.cleaned_data['enrolled']),
+            #                 form.cleaned_data['adults'],
+            #                 form.cleaned_data['phone'],
+            #                 form.cleaned_data['email']]))
+        return httprespred('/tally/students/{}'.format(student.id))
     else:
         form = StudentForm()
 
